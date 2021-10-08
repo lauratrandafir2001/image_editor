@@ -1,0 +1,51 @@
+# Trandafir Laura Florina, 313CA
+			Tema 3
+
+	-Am citit comenzile cu ajutorul stringului "command_line",pe care l-am despartit cu functia "fgets" in
+tokens,primul fiind "command"(comanda data).
+
+	-Pentru comanda "LOAD", de incarcare a imaginii in memorie, am folosit o structura, in care am retinut tipul imaginii,
+un pointer la void imagine_arr, in care am pastrat matricea(ori,color,ori alb negru) si dimensiunile ei.Pentru a verifica daca
+matricea exista(imaginea este valida), am citit din fisier, intr-o structura temporara, utilizand "fscanf"pentru ascii si
+"fread" pentru binar.Daca matricea exista si imaginea este valida, o retinem in img, mai exact in img.imagine_arr,
+selectia este totala, iar cnt devine 1 (deoarece avem in memorie incarcata o imagine).
+
+	-Pentru comanda "SELECT", am utilizat un string "no1" pentru a pastra in el ce este dupa "SELECT".Am verificat daca in
+el exista "ALL", daca exita atunci selectia este totala.Daca, pe de alta parte, exista cifre, folosesc "x1_temp_char",
+"x2_temp_char", etc pentru a stoca in aceste variabile fiecare coordonata.Verific daca coordonatele exista si daca sunt valide,
+iar apoi, le schimb in ordinea dorita.
+
+	-Pentru comanda "EXIT", verific daca exista vreo imagine incarcata, daca exista, eliberez memoria, si inchei executia.
+	
+	-Pentru comanda "SEPIA", verific daca matricea alocata este color (3d in program) si se poate aplica sepia, daca este,
+aloc o noua matrice, iau variabilele de tip double new_rred, new_ggreen, new_bblue, in care calculez valoarea pixelilor,
+pentru selectia data, iar daca aceasta nu este totala, copiez din vechea matrice, restul valorilor,ramase la fel.
+Aproximez, cu ajutorul functiei "round_no" valoarea pixelilor, fac minimul dintre aceastia si valoarea maxima,
+iar apoi fac un cast la "int", pentru a se stoca corect, iar la final eliberez vechea matrice.
+
+	-Pentru comanda "GRAYSCALE", verific, din nou, daca matricea este de tip color, si se poate aplca grayscale, daca este,
+aloc o noua matrice, iau variabilele de tip double new_red, new_green, new_blue in care calculez, conform formulei date, 
+noile valori, copiez valorile din matricea veche, pentru zonele care nu au fost selectate.Aproximez valorile cu ajutorul
+aceleiasi functii, "round", si apoi le introduc in noua matrice, iar la final o eliberez pe cea veche.
+
+	-Pentru comanda "CROP", aplic acelasi procedeu ca la functiile anterioare, aloc o copie a matricii, dar
+de data aceasta de dimensiuni diferite, anume selectiei specifice, iar apoi copiez din matricea veche in matricea noua
+si o eliberez la sfarsit pe cea veche.
+
+	-Pentru comanda "ROTATE", am construit o functie adiacenta, "decides_what_type_of_rotation", in care,
+dupa cum spune si numele, decid ce tip de rotatie fac, in functie de natura unghiului, daca el este pozitiv, 
+sau negativ valoare lui.De asemenea, tipul rotatiei este diferit daca imaginea este selectata in intregime
+sau doar o portiune.Astfel, incep prin a vedea ce fel de selectie este, daca este totala, aplic functia rotate_all,
+iar, daca unghiul este +90 o aplic o singura data, pentru +180 de doua ori si pentru 270 de trei ori, daca unghiul
+este negativ aplic echivalentul lui pozitiv(- 90 este echivalent cu +270) .Acelasi lucru l-am facut si daca este
+selectata o sectiune, cu ajutorul functiei "rotate_section".
+
+	-Pentru comanda "SAVE", cu ajutorul stringului "num_out" am retinut nunmele fisierului, apoi am verificat daca
+mai exista ceva dupa dupa acest nume, pentru a vedea daca variabila ascii este prezenta.In functia "save_function",
+am verificat daca este prezenta variabila ascii si am salvat pentru fiecare caz.Am scris in fisier, tipul imaginii, 
+dimensiunile si valoarea maxima, cu ajutorul functiei fprintf, iar daca fisierul trebuia salvat de tip ascii, am
+utilizat in continuare functia "fprintf", daca acesta trebuia salvat in binar, am utilizat o variabila temp,
+de tip char in care am retinut matricea, iar apoi am scris-o in fisier cu ajutorul functiei "fwrite".  
+
+	-Pentru fiecare din comenzi am verificat intai daca este o imagine incarcata in memorie, cu functia
+"cnt_function", apoi daca exista, aplica operatiile de mai sus.
